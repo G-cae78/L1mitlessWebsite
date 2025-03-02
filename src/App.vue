@@ -16,7 +16,10 @@
 }
 
 nav {
+  display: flex;
+  justify-content: flex-start; /* Align items to the left */
   padding: 30px;
+  margin-top: 20px;
 }
 
 nav a {

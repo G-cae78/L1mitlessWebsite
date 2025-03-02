@@ -1,5 +1,6 @@
 <template>
   <div class="about">
-    <h1>This is an about page</h1>
+    <img alt="Vue logo" src="../assets/TransparentLogo.png">
+    <h1>About L1MITLESS</h1>
   </div>
 </template>
