@@ -1,6 +1,10 @@
+<script setup lang="ts">
+import About from '@/components/About.vue';
+</script>
+
 <template>
   <div class="about">
-    <h1>About L1MITLESS</h1>
+    <About />
   </div>
 </template>
 

@@ -1,7 +1,9 @@
 <template>
   <nav>
-    <router-link to="/" class="navButton">Home</router-link> |
+    <router-link to="/" class="navButton">Home</router-link> 
     <router-link to="/about" class="navButton">About</router-link>
+    <a href="https://linktr.ee/L1mtless" target="_blank" rel="noopener" class ="navButton">Contact</a>
+    <router-link to="/cart" class="navButton">Cart <img src=""></router-link>
   </nav>
   <div class="topnav">
     <span class="left-text">L1MITLESS</span>

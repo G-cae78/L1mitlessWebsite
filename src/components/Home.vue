@@ -21,9 +21,6 @@
         </div>
       </button>
     </div>
-    <ul>
-      <li><a href="https://linktr.ee/L1mtless" target="_blank" rel="noopener">Get In Contact</a></li>
-    </ul>
   </div>
 </template>
 
@@ -133,5 +130,12 @@ button:hover .overlay {
   transform: translate(-50%, -50%);
   white-space: nowrap;
   font-weight: bold;
+}
+
+.footer {
+  font-size: 1.5rem;
+  color:black;
+  text-decoration: none;
+  transition: color 0.3s ease;
 }
 </style>
