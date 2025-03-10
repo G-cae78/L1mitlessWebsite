@@ -2,22 +2,28 @@
   <div class="hello">
     <h1>{{ msg }}</h1>
     <div class="button-container">
-      <button>
-        <img :src="require('@/assets/Pasta.png')" alt="pasta">
+      <button @click="switchPage('meal-plans')">
+        <img :src="require('@/assets/Pasta.png')" alt="meal plans" class="button-image">
         <div class="overlay">
           <div class="text">Meal Plans</div>
         </div>
       </button>
-      <button>
-        <img :src="require('@/assets/Running.png')" alt="running">
+      <button @click="switchPage('hybrid')">
+        <img :src="require('@/assets/Running.png')" alt="hybrid training" class="button-image">
         <div class="overlay">
           <div class="text">Hybrid Training</div>
         </div>
       </button>
-      <button>
-        <img :src="require('@/assets/calfraises.png')" alt="calf raises">
+      <button @click="switchPage('strength')">
+        <img :src="require('@/assets/calfraises.png')" alt="strength training" class="button-image">
         <div class="overlay">
           <div class="text">Strength Training</div>
+        </div>
+      </button>
+      <button>
+        <img :src="require('@/assets/CapMerch.png')" alt="merchandise" class="button-image merchandise-image">
+        <div class="overlay">
+          <div class="text">Merchandise</div>
         </div>
       </button>
     </div>
@@ -26,6 +32,7 @@
 
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component';
+import { useRouter } from 'vue-router';
 
 @Options({
   props: {
@@ -34,46 +41,31 @@ import { Options, Vue } from 'vue-class-component';
 })
 export default class HelloWorld extends Vue {
   msg!: string
-}
+
+  router = useRouter();
+
+    switchPage = (page: string) => {
+      this.router.push(`/${page}`);
+    };
+
+  }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 h1 {
   font-size: 2.5rem;
   margin-bottom: 20px;
   color: #333;
-}
-
-ul {
-  list-style-type: none;
-  padding: 0;
-  margin-top: 30px;
-}
-
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-
-a {
-  color: #42b983;
-  text-decoration: none;
-  font-size: 1.2rem;
-  transition: color 0.3s ease;
-}
-
-a:hover {
-  color: #2c3e50;
+  text-align: center; /* Center the heading */
 }
 
 .button-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 20px; /* Reduced gap for a cleaner look */
+  gap: 20px;
   margin: 20px 0;
-  flex-wrap: wrap; /* Ensure responsiveness */
+  flex-wrap: wrap;
 }
 
 button {
@@ -85,24 +77,28 @@ button {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 300px; /* Fixed width for consistency */
-  height: 400px; /* Reduced height for better proportions */
+  width: 300px;
+  height: 400px;
   overflow: hidden;
-  border-radius: 10px; /* Rounded corners for a modern look */
+  border-radius: 10px;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 button:hover {
-  transform: scale(1.05); /* Slight zoom on hover */
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Subtle shadow on hover */
+  transform: scale(1.05);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
 .button-image {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center; /* Center the image */
-  border-radius: 10px; /* Match button border radius */
+  object-position: center;
+  border-radius: 10px;
+}
+
+.merchandise-image {
+  object-position: 40% 50%; /* Adjust to zoom out the merchandise image */
 }
 
 .overlay {
@@ -111,10 +107,10 @@ button:hover {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.6); /* Darker overlay for better contrast */
+  background-color: rgba(0, 0, 0, 0.6);
   opacity: 0;
   transition: opacity 0.3s ease;
-  border-radius: 10px; /* Match button border radius */
+  border-radius: 10px;
 }
 
 button:hover .overlay {
@@ -130,12 +126,5 @@ button:hover .overlay {
   transform: translate(-50%, -50%);
   white-space: nowrap;
   font-weight: bold;
-}
-
-.footer {
-  font-size: 1.5rem;
-  color:black;
-  text-decoration: none;
-  transition: color 0.3s ease;
 }
 </style>

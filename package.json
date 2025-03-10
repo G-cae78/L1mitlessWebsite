@@ -36,31 +36,33 @@
     "ts-jest": "^27.0.4",
     "typescript": "~4.5.5"
   },
-  "eslintConfig": {
-    "root": true,
-    "env": {
-      "node": true
-    },
-    "extends": [
-      "plugin:vue/vue3-essential",
-      "eslint:recommended",
-      "@vue/typescript/recommended"
-    ],
-    "parserOptions": {
-      "ecmaVersion": 2020
-    },
-    "rules": {},
-    "overrides": [
-      {
-        "files": [
-          "**/__tests__/*.{j,t}s?(x)",
-          "**/tests/unit/**/*.spec.{j,t}s?(x)"
-        ],
-        "env": {
-          "jest": true
+    "eslintConfig": {
+      "root": true,
+      "env": {
+        "node": true
+      },
+      "extends": [
+        "plugin:vue/vue3-essential",
+        "eslint:recommended",
+        "@vue/typescript/recommended"
+      ],
+      "parserOptions": {
+        "ecmaVersion": 2020
+      },
+      "rules": {
+        "vue/multi-word-component-names": "off"
+      },
+      "overrides": [
+        {
+          "files": [
+            "**/__tests__/*.{j,t}s?(x)",
+            "**/tests/unit/**/*.spec.{j,t}s?(x)"
+          ],
+          "env": {
+            "jest": true
+          }
         }
-      }
-    ]
+      ]
   },
   "browserslist": [
     "> 1%",

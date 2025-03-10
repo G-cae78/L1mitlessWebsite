@@ -2,22 +2,33 @@
   <nav>
     <router-link to="/" class="navButton">Home</router-link> 
     <router-link to="/about" class="navButton">About</router-link>
-    <a href="https://linktr.ee/L1mtless" target="_blank" rel="noopener" class ="navButton">Contact</a>
-    <router-link to="/cart" class="navButton">Cart <img src=""></router-link>
+    <a href="https://linktr.ee/L1mtless" target="_blank" rel="noopener" class="navButton">Contact</a>
+    <router-link to="/cart" class="navButton">Cart <img :src="require('@/assets/cart.png')" alt="cart" class="cart-icon"></router-link>
   </nav>
   <div class="topnav">
     <span class="left-text">L1MITLESS</span>
-      <img class="logo" alt="logo" src="./assets/TransparentLogo.png">
-      <span class="right-text">NO CEILINGS.</span>
+    <img class="logo" alt="logo" src="./assets/TransparentLogo.png" @click="goHome">
+    <span class="right-text">NO CEILINGS.</span>
   </div>
   <router-view/>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
+import { useRouter } from 'vue-router';
 
 export default defineComponent({
   name: 'App',
+  setup() {
+    const router = useRouter();
+    const goHome = () => {
+      router.push('/');
+    };
+
+    return {
+      goHome
+    };
+  },
   mounted() {
     // Add the 'fly-up' class to the logo after the component mounts
     const logo = document.querySelector('.logo') as HTMLElement;
@@ -107,5 +118,12 @@ nav a.router-link-exact-active {
   font-size: 24px;
   font-weight: bold;
   color: black;
+}
+
+.cart-icon {
+  width: 20px; /* Adjust the width as needed */
+  height: 20px; /* Adjust the height as needed */
+  margin-left: 5px; /* Add some space between the text and the image */
+  vertical-align: middle; /* Align the image vertically with the text */
 }
 </style>
