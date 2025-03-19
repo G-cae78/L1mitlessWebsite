@@ -1,5 +1,15 @@
+<script setup lang="ts">
+import Cart from '@/components/Cart.vue';
+</script>
+
 <template>
-     <div>
-        Cart Items
-     </div>
- </template>
+  <div class="about">
+    <Cart />
+  </div>
+</template>
+
+<style>
+h1 {
+  margin-top: 60px;
+}
+</style>

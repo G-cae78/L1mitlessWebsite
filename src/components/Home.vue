@@ -20,8 +20,8 @@
           <div class="text">Strength Training</div>
         </div>
       </button>
-      <button>
-        <img :src="require('@/assets/CapMerch.png')" alt="merchandise" class="button-image merchandise-image">
+      <button @click="switchPage('merch')">
+        <img :src="require('@/assets/Cap1.png')" alt="merchandise" class="button-image merchandise-image">
         <div class="overlay">
           <div class="text">Merchandise</div>
         </div>
