@@ -1,26 +1,41 @@
-import { loadStripe } from '@stripe/stripe-js';
+const express = require('express');
+const Stripe = require('stripe');
+const cors = require('cors');
 
-const stripe = await loadStripe('pk_test_51R3fhbPconqYmSJtUhSPMTRDpObA87eZh906O9EqIwl0Kk4EvHNJHOY65QIuTFF2Y8Yxq4e48PVaoqVsevE143qE00hD6vgP1A');
+const stripe = Stripe('sk_test_51R3fhbPconqYmSJtkjWI2C4w66EmubT3yU9RTLr7KqhJzxCocfNdPkRpU6mZMWC3fMEWHpYA81VZaOm0fpVgZjg600n4pVVZud'); // Use your actual Stripe secret key
+const app = express();
 
-const handlePurchase = async (planId, price) => {
-  const response = await fetch('/create-payment-intent', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ planId, price }),
-  });
-  const { clientSecret } = await response.json();
+app.use(express.json());
+app.use(cors());
 
-  // Redirect to Stripe Checkout
-  const { error } = await stripe.confirmPayment({
-    clientSecret,
-    payment_method: { card: elements.getElement(CardElement) },
-  });
+app.post('/create-checkout-session', async (req, res) => {
+    const { planId, name, price } = req.body;
 
-  if (error) {
-    console.error('Payment failed:', error.message);
-  } else {
-    console.log('Payment successful!');
-    // Save purchase record in Firestore
-    await savePurchase(planId);
-  }
-};
+    try {
+        const session = await stripe.checkout.sessions.create({
+            payment_method_types: ['card'],
+            mode: 'payment',
+            success_url: 'http://localhost:3000/success?session_id={CHECKOUT_SESSION_ID}',
+            cancel_url: 'http://localhost:3000/cancel',
+            line_items: [
+                {
+                    price_data: {
+                        currency: 'usd',
+                        product_data: {
+                            name: name,
+                        },
+                        unit_amount: price * 100, // Stripe works with cents
+                    },
+                    quantity: 1,
+                },
+            ],
+            metadata: { planId },
+        });
+
+        res.json({ id: session.id });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
+app.listen(4242, () => console.log('Server running on port 4242'));

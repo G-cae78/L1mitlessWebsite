@@ -1,101 +1,67 @@
 <template>
-    <div class="cart-page">
-      <h1>Your Cart</h1>
-      <p class="subtitle">Review your items and proceed to checkout.</p>
-  
-      <!-- Cart Items -->
-      <div v-if="cartItems.length > 0" class="cart-items">
-        <div v-for="item in cartItems" :key="item.id" class="cart-item">
-          <img :src="item.image" :alt="item.name" class="item-image" />
-          <div class="item-details">
-            <h2>{{ item.name }}</h2>
-            <p class="price">${{ item.price }}</p>
-            <p v-if="item.selectedSize" class="size">Size: {{ item.selectedSize }}</p>
-            <p v-if="item.selectedOption" class="option">Plan: {{ item.selectedOption }}</p>
-            <div class="quantity-controls">
-              <button @click="decreaseQuantity(item)" class="quantity-button">-</button>
-              <span class="quantity">{{ item.quantity }}</span>
-              <button @click="increaseQuantity(item)" class="quantity-button">+</button>
-            </div>
-            <button @click="removeItem(item)" class="remove-button">Remove</button>
+  <div class="cart-page">
+    <h1>Your Cart</h1>
+    <p class="subtitle">Review your items and proceed to checkout.</p>
+
+    <div v-if="cartItems.length > 0" class="cart-items">
+      <div v-for="item in cartItems" :key="item.id" class="cart-item">
+        <img :src="item.image" :alt="item.name" class="item-image" />
+        <div class="item-details">
+          <h2>{{ item.name }}</h2>
+          <p class="price">€{{ item.price }}</p>
+          <p v-if="item.selectedSize" class="size">Size: {{ item.selectedSize }}</p>
+          <p v-if="item.selectedOption" class="option">Plan: {{ item.selectedOption }}</p>
+
+          <div class="quantity-controls">
+            <button @click="decreaseQuantity(item.productId)" class="quantity-button">-</button>
+            <span class="quantity">{{ item.quantity }}</span>
+            <button @click="increaseQuantity(item.productId)" class="quantity-button">+</button>
           </div>
+          <button @click="removeItem(item.productId)" class="remove-button">Remove</button>
         </div>
       </div>
-  
-      <!-- Empty Cart Message -->
-      <div v-else class="empty-cart">
-        <p>Your cart is empty. Start shopping now!</p>
-      </div>
-  
-      <!-- Cart Summary -->
-      <div v-if="cartItems.length > 0" class="cart-summary">
-        <h3>Cart Summary</h3>
-        <p class="total">Total: ${{ totalPrice.toFixed(2) }}</p>
-        <button @click="checkout" class="checkout-button">Proceed to Checkout</button>
-      </div>
     </div>
-  </template>
-  
-  <script lang="ts">
-  import { defineComponent } from 'vue';
-  
-  interface CartItem {
-  id: number;
-  name: string;
-  price: number;
-  image: string;
-  selectedSize?: string;
-  selectedOption?: string;
-  quantity: number;
-}
-  export default defineComponent({
-    name: 'CartPage',
-    data() {
-      return {
-        cartItems: [
-          // Example cart items (replace with dynamic data from a store or backend)
-          {
-            id: 1,
-            name: 'L1MITLESS Cap',
-            price: 25.99,
-            image: require('@/assets/Cap1.png'), // Replace with your image
-            selectedSize: 'M',
-            quantity: 1,
-          },
-          {
-            id: 2,
-            name: 'Workout Plan',
-            price: 49.99,
-            image: require('@/assets/Running.png'), // Replace with your image
-            selectedOption: '3 Months',
-            quantity: 1,
-          },
-        ],
-      };
+
+    <div v-else class="empty-cart">
+      <p>Your cart is empty. Start shopping now!</p>
+    </div>
+
+    <div v-if="cartItems.length > 0" class="cart-summary">
+      <h3>Cart Summary</h3>
+      <p class="total">Total: €{{ totalPrice.toFixed(2) }}</p>
+      <button @click="switchPage('delivery')" class="checkout-button">Proceed to Checkout</button>
+    </div>
+  </div>
+</template>
+
+<script lang="ts">
+import { defineComponent } from 'vue';
+import { mapGetters, mapActions } from 'vuex';
+
+export default defineComponent({
+  name: 'CartPage',
+  computed: {
+    ...mapGetters(['cartItems', 'totalPrice']),
+  },
+  methods: {
+    ...mapActions(['increaseQuantity', 'decreaseQuantity', 'removeItem']),
+    switchPage(page: string) {
+      this.$router.push({
+        path: `/${page}`,
+        query: {
+          productId: this.cartItems.map((item: any) => item.id).join(','), // Pass all plan IDs
+          name: this.cartItems.map((item: any) => item.name).join(','), // Pass names
+          description: this.cartItems.map((item: any) => item.description).join(','), // Pass descriptions
+          price: this.cartItems.map((item: any) => item.price).join(','), // Pass prices
+          quantity: this.cartItems.map((item: any) => item.quantity).join(','), // Pass quantities
+          total: this.totalPrice.toFixed(2), // Pass total price
+        },
+      });
     },
-    computed: {
-      totalPrice(): number {
-        return this.cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
-      },
-    },
-    methods: {
-      increaseQuantity(item: any) {
-        item.quantity++;
-      },
-      decreaseQuantity(item: any) {
-        if (item.quantity > 1) {
-          item.quantity--;
-        }
-      },
-      removeItem(item: any): void {
-        this.cartItems = this.cartItems.filter((i) => i.id !== item.id);
-      },
-      checkout() {
-        alert('Proceeding to checkout!'); // Replace with actual checkout logic
-      },
-    },
-  });
-  </script>
+  },
+});
+</script>
+
   
   <style scoped>
   .cart-page {

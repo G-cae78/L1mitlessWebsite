@@ -54,6 +54,36 @@ const routes: Array<RouteRecordRaw> = [
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "about" */ '../views/CartView.vue')
+  },
+  {  path: '/delivery',
+    name: 'delivery',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "about" */ '../views/DeliveryView.vue')
+  },
+  {
+    path: '/payment',
+    name: 'payment',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "about" */ '../views/PaymentView.vue')
+  },
+  {
+    path: '/success',
+    name: 'success',
+    component: () => import(/* webpackChunkName: "about" */ '../views/SuccessView.vue')
+  },
+  {
+    path: '/cancel',
+    name: 'cancel',
+    component: () => import(/* webpackChunkName: "about" */ '../views/CancelView.vue')
+  },
+  {
+    path: '/product/:id',
+    name: 'product',
+    component: () => import(/* webpackChunkName: "about" */'../views/ProductView.vue')
   }
 
 ]

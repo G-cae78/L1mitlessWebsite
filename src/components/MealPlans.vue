@@ -15,6 +15,7 @@
                 {{ option }}
               </option>
             </select>
+            <p class="merch-price"><strong>Price: </strong>€{{ plan.price.toFixed(2) }}</p>
             <button @click="addToCart(plan)" class="add-to-cart-button">Add to Cart</button>
           </div>
         </div>
@@ -24,6 +25,8 @@
   
   <script lang="ts">
   import { defineComponent } from 'vue';
+  import { mapMutations } from 'vuex';
+  import { loadStripe } from '@stripe/stripe-js';
   
   export default defineComponent({
     name: 'MealPlans',
@@ -32,10 +35,11 @@
         mealPlans: [
           {
             id: 1,
-            name: 'Eat Healthy',
+            name: 'Healthy',
             description: 'A balanced meal plan to maintain your fitness and energy levels.',
             image: require('@/assets/Breakfast.png'), // Replace with your image
             options: ['1 Week', '2 Weeks', '1 Month'],
+            price: 5.99,
             selectedOption: '1 Week',
           },
           {
@@ -44,6 +48,7 @@
             description: 'High-protein meals to help you build muscle and strength.',
             image: require('@/assets/MexicanRice.png'), // Replace with your image
             options: ['1 Week', '2 Weeks', '1 Month'],
+            price: 5.99,
             selectedOption: '1 Week',
           },
   
@@ -53,16 +58,25 @@
             description: 'Targeted meal plan to reduce body fat while maintaining muscle mass.',
             image: require('@/assets/StirFry.png'), // Replace with your image
             options: ['1 Week', '2 Weeks', '1 Month'],
+            price: 5.99,
             selectedOption: '1 Week',
           },
         ],
       };
     },
     methods: {
-      addToCart(plan: any) {
-        alert(`Added ${plan.name} (${plan.selectedOption}) to cart!`);
-        // You can replace this with actual cart logic (e.g., Vuex or a cart service)
-      },
+      ...mapMutations(['ADD_TO_CART']),
+    addToCart(item: any) {
+      this.ADD_TO_CART({
+        productId: item.productId,
+        name: item.name,
+        price: item.price,
+        image: item.image,
+        selectedSize: item.selectedSize,
+        quantity: 1, // Default to 1 when adding a new item
+      });
+      alert(`${item.name} added to cart!`);
+    },
     },
   });
   </script>
@@ -132,6 +146,13 @@
     margin-bottom: 15px;
     font-size: 1rem;
   }
+
+  .merch-price {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 15px;
+}
   
   .add-to-cart-button {
     width: 100%;

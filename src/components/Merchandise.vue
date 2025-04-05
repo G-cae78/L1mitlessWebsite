@@ -1,81 +1,106 @@
 <template>
-    <div class="merchandise-page">
-        <br><br>
-      <!-- <h1>L1MITLESS Merchandise</h1> -->
-      <p class="subtitle">Shop our exclusive collection to support and represent the L1MITLESS lifestyle.</p>
-  
-      <div class="merch-container">
-        <!-- Product Card for Caps -->
-        <div class="product-card" v-for="cap in caps" :key="cap.id">
-          <img :src="cap.image" :alt="cap.name" class="product-image" />
-          <div class="product-details">
-            <h2>{{ cap.name }}</h2>
-            <p class="price">€{{ cap.price }}</p>
-            <p class="description">{{ cap.description }}</p>
-            <select v-model="cap.selectedSize" class="size-select" placeholder="One Size">
-              <option v-for="size in cap.sizes" :key="size" :value="size">
-                {{ size }}
-              </option>
-            </select>
-            <button @click="addToCart(cap)" class="add-to-cart-button">Add to Cart</button>
-          </div>
+  <div class="merchandise-page">
+    <p class="subtitle">Shop our exclusive collection to support and represent the L1MITLESS lifestyle.</p>
+
+    <div class="merch-container">
+      <div 
+        class="product-card" 
+        v-for="product in products" 
+        :key="product.productId"
+        @click="viewProductDetails(product)"
+      >
+        <img :src="product.image" :alt="product.name" class="product-image" />
+        <div class="product-details">
+          <h2>{{ product.name }}</h2>
+          <p class="price">€{{ product.price }}</p>
+          <p class="description">{{ product.description }}</p>
+          <button class="add-to-cart-button">View Details</button>
         </div>
       </div>
     </div>
-  </template>
-  
-  <script lang="ts">
-  import { defineComponent } from 'vue';
-  
-  export default defineComponent({
-    name: 'MerchandisePage',
-    data() {
-      return {
-        caps: [
-          {
-            id: 1,
-            name: 'L1MITLESS Trucker Cap',
-            description: 'A sleek and stylish cap to represent the LIMITLESS lifestyle.',
-            price: 25.99,
-            image: require('@/assets/Cap1.png'), // Replace with your cap image
-            // sizes: ['S', 'M', 'L', 'XL'],
-            sizes: ['One Size'],
-            selectedSize: 'M',
-          },
-          {
-            id: 2,
-            name: 'L1MITLESS Trucker Cap',
-            description: 'A sleek and stylish cap to represent the LIMITLESS lifestyle.',
-            price: 25.99,
-            image: require('@/assets/Cap2.png'), // Replace with your cap image
-            // sizes: ['S', 'M', 'L', 'XL'],
-            sizes: ['One Size'],
-            selectedSize: 'M',
-          },
-          {
-            id: 3,
-            name: 'L1MITLESS Trucker Cap',
-            description: 'A sleek and stylish cap to represent the LIMITLESS lifestyle.',
-            price: 25.99,
-            image: require('@/assets/Cap3.png'), // Replace with your cap image
-            // sizes: ['S', 'M', 'L', 'XL'],
-            sizes: ['One Size'],
-            selectedSize: 'M',
-          },
-          // Add more caps or products here as needed
-        ],
-      };
-    },
-    methods: {
-      addToCart(product: any) {
-        alert(`Added ${product.name} (Size: ${product.selectedSize}) to cart!`);
-        // You can replace this with actual cart logic (e.g., Vuex or a cart service)
-      },
-    },
-  });
-  </script>
-  
-  <style scoped>
+  </div>
+</template>
+
+<script lang="ts">
+import { defineComponent } from 'vue';
+import { useRouter } from 'vue-router';
+
+interface Product {
+  productId: string;
+  name: string;
+  price: number;
+  image: string;
+  images?: string[];
+  description: string;
+  sizes: string[];
+  additionalInfo?: string;
+}
+
+export default defineComponent({
+  name: 'MerchandisePage',
+  data() {
+    return {
+      products: [
+        {
+          productId: "prod_S26fyB25tyKpD1",
+          name: "Become L'1'mitless Club Tee",
+          description: 'A sleek and stylish tee to represent the LIMITLESS lifestyle.',
+          price: 25.99,
+          image: require('@/assets/shirtBack.png'),
+          images: [
+            require('@/assets/Front.png'),
+            require('@/assets/Folded.png'),
+            //require('@/assets/shirtDetail2.png')
+          ],
+          sizes: ['S', 'M', 'L', 'XL'],
+          additionalInfo: '100% cotton, machine washable, slim fit design'
+        },
+        {
+          productId: "prod_S26c3i7MqPJkfG",
+          name: "L'1'mitless Trucker Cap",
+          description: 'A sleek and stylish cap to represent the LIMITLESS lifestyle.',
+          price: 25.99,
+          image: require('@/assets/Cap2.png'),
+          images: [
+            require('@/assets/Cap2.png'),
+            //require('@/assets/Cap2_alt2.png')
+          ],
+          sizes: ['One Size'],
+          additionalInfo: 'Adjustable strap, 100% cotton'
+        },
+        {
+          productId: "prod_S26c3i7MqPJkfG",
+          name: 'L1MITLESS Trucker Cap',
+          description: 'A sleek and stylish cap to represent the LIMITLESS lifestyle.',
+          price: 25.99,
+          image: require('@/assets/Cap3.png'),
+          images: [
+            require('@/assets/Cap3.png'),
+            //require('@/assets/Cap2_alt2.png')
+          ],
+          sizes: ['One Size'],
+          additionalInfo: 'Adjustable strap, 100% cotton'
+        },
+        // Add more products as needed
+      ] as Product[],
+      product: null as Product | null,
+      mainImage: '',
+      selectedSize: ''
+    };
+  },
+  methods: {
+  viewProductDetails(product: Product) {
+    console.log('Navigating to product:', product); 
+    this.$router.push({
+      name: 'product',
+      params: { id: product.productId } // Pass productId as a route parameter
+    });
+  }
+}
+
+});
+</script>
+<style scoped>
   .merchandise-page {
     padding: 20px;
     text-align: center;
