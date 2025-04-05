@@ -2,7 +2,7 @@ const express = require('express');
 const Stripe = require('stripe');
 const cors = require('cors');
 
-const stripe = Stripe('sk_test_51R3fhbPconqYmSJtkjWI2C4w66EmubT3yU9RTLr7KqhJzxCocfNdPkRpU6mZMWC3fMEWHpYA81VZaOm0fpVgZjg600n4pVVZud'); // Use your actual Stripe secret key
+const stripe = Stripe('test-key'); // Use your actual Stripe secret key
 const app = express();
 
 app.use(express.json());
