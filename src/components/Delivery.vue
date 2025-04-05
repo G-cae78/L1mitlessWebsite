@@ -137,7 +137,7 @@ export default defineComponent({
     const { sessionId } = response.data;
     console.log("Stripe sessionId:", sessionId);
 
-    const stripe = await loadStripe("pk_live_51R3fhPBSEvZ2sDOOM6NhGzEpEY7okEW0Nz8PzzH4sebQ6zCLQivq5FasGrc1Xx63tn55K5c8xU3Qs3ieiUprvQa900k7yg3eZo");
+    const stripe = await loadStripe("publish-key");
     await stripe?.redirectToCheckout({ sessionId });
 
   } catch (error) {
