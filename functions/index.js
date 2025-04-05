@@ -10,13 +10,13 @@ const db = admin.firestore();
 const storage = admin.storage();
 
 // Initialize Stripe using Firebase config
-const stripe = new Stripe("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", {
+const stripe = new Stripe("Stripe-secret-key", {
   apiVersion: "2024-04-10",
   //stripeAccount: 'acct_xxx',
   //apiMode: 'live'
 });
 
-const stripeWebhookSecret = new Stripe("whsec_KCvvD0Rm6qx5Gniu4EA0U8X6rtA51rho", {
+const stripeWebhookSecret = new Stripe("Stripe-webhook-secret", {
   apiVersion: "2024-04-10",
   //stripeAccount: 'acct_xxx',
   //apiMode: 'live'
