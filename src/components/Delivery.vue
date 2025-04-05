@@ -167,8 +167,6 @@ export default defineComponent({
   },
 });
 </script>
-<!-- pk_test_51R3fhbPconqYmSJtUhSPMTRDpObA87eZh906O9EqIwl0Kk4EvHNJHOY65QIuTFF2Y8Yxq4e48PVaoqVsevE143qE00hD6vgP1A
-https://createcheckoutsession-y65c5f7hba-ew.a.run.app -->
 <style scoped>
 .error-message {
   color: #ff4444;
