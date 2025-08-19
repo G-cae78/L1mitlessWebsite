@@ -2,9 +2,9 @@
   <div class="app-container">
     <!-- Responsive Header -->
     <header class="main-header">
-      <span class="header-text left-text">BECOME</span>
-      <img class="logo" alt="logo" src="./assets/TransparentLogo.png" @click="goHome">
-      <span class="header-text right-text">L1MITLESS</span><br>
+      <!-- <span class="header-text left-text">BECOME</span> -->
+      <img class="logo" alt="logo" src="./assets/TransparentWhiteLogo.png" @click="goHome">
+      <!-- <span class="header-text right-text">L1MITLESS</span><br> -->
     </header>
     
     <!-- Responsive Navigation -->
@@ -74,13 +74,14 @@ export default defineComponent({
 });
 </script>
 
-<style scoped>
+<style>
 /* Base Styles */
 #app, .app-container {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
+  
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -93,7 +94,7 @@ export default defineComponent({
 .main-nav {
   width: 100%;
   padding: 0.5rem 0;
-  background-color: white;
+  /* background-color: white; */
   position: sticky;
   top: 0;
   z-index: 100;
@@ -195,7 +196,7 @@ export default defineComponent({
   align-items: center; /* Center the content vertically */
   width: 100%; /* Full width */
   padding: 0.5rem 0; /* Vertical padding */
-  background-color: white; /* Header background */
+  background-color: transparent; /* Header background */
   position: relative; /* Ensure proper positioning */
   z-index: 100; /* Ensure it stays above other elements */
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Optional shadow for better visibility */
@@ -220,7 +221,7 @@ html, body {
   width: 100%; /* Ensure full width */
   margin: 0; /* Remove unnecessary margins */
   padding: 0.5rem 0; /* Keep vertical padding */
-  background-color: white; /* Header background */
+  background-color: transparent; /* Header background */
   position: relative; /* Ensure proper positioning */
   z-index: 100; /* Ensure it stays above other elements */
 }
@@ -233,10 +234,17 @@ html, body {
 }
 
 .logo {
-  height: 90px;
-  width: 90px;
+  display: block;
+  margin: 0 auto; 
+  height: auto;
+  width: clamp(140px, 15vw, 260px); /* scales between 120px and 260px based on viewport width */
   transition: transform 0.3s ease;
   cursor: pointer;
+  background-color: transparent;
+}
+
+.logo-container {
+  background-color: transparent; /* Ensure the parent container has no background */
 }
 
 /* Animation */
@@ -261,11 +269,11 @@ html, body {
 }
 
 .main-footer {
-  background-color: #f8f8f8; /* Footer background */
+  background-color: transparent; /* Footer background */
   text-align: center;
   padding: 1rem;
   font-size: 0.9rem;
-  color: #777;
+  color: #020202;
   border-top: 1px solid #e0e0e0;
 }
 
@@ -296,9 +304,10 @@ html, body {
   }
   
   .logo {
-    height: 80px; /* Slightly reduced for better proportion */
-    width: 80px;
-    margin-right: 0.5rem; /* Added spacing between logo and right text */
+    max-width: 250px;
+    height: auto;
+     width: 70vw;     
+    max-height: 230px;
   }
 }
 
@@ -319,8 +328,10 @@ html, body {
   }
   
   .logo {
-    height: 70px;
-    width: 70px;
+    max-width: 190px;
+    height: auto;
+    width: 60vw;   
+    max-height: 160px;
   }
   
   .nav-button {

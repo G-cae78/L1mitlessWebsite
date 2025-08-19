@@ -53,9 +53,9 @@
     align-items: center;
     min-height: 100vh;
     padding: 2rem;
-    background-color: #f9f9f9;
+    background-color: transparent;
     font-family: 'Arial', sans-serif;
-    color: #333;
+    color: #020202;
   }
   
   .about-content {
