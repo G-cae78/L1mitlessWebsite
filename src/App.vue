@@ -44,6 +44,7 @@ import { defineComponent } from 'vue';
 import { useRouter } from 'vue-router';
 import { useStore } from 'vuex';
 import { computed } from 'vue';
+import { useHead } from '@vueuse/head'; // Import head management
 
 export default defineComponent({
   name: 'App',
@@ -56,6 +57,21 @@ export default defineComponent({
     const goHome = () => {
       router.push('/');
     };
+
+    // Default SEO meta tags
+    useHead({
+      title: 'BECOME L1MITLESS – Hybrid Training, Fitness & Merchandise',
+      meta: [
+        {
+          name: 'description',
+          content: 'Hybrid training, strength programs, meal plans, and fitness merchandise. Use code L1M10 for 10% off!',
+        },
+        { name: 'robots', content: 'index, follow' },
+      ],
+      link: [
+        { rel: 'canonical', href: 'https://becomel1mitless.com' },
+      ],
+    });
 
     return {
       goHome,
