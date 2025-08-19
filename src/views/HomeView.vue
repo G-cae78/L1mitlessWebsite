@@ -1,16 +1,19 @@
 <template>
   <div class = "text-container">
     <Home msg=""/>
+    <BackgroundVideo />
   </div>
 </template>
 
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component';
 import Home from '@/components/Home.vue'; // @ is an alias to /src
+import BackgroundVideo from '@/components/BackgroundVideo.vue';
 
 @Options({
   components: {
     Home,
+    BackgroundVideo,
   },
 })
 export default class HomeView extends Vue {}

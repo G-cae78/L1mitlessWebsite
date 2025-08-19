@@ -1,6 +1,7 @@
 import { createStore } from 'vuex';
 
 interface CartItem {
+  isMerchandise?: boolean;
   productId: number;
   name: string;
   price: number;

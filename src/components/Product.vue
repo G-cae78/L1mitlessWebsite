@@ -1,5 +1,10 @@
 <template>
   <div class="product-detail-page">
+    <!-- Coming Soon Banner -->
+    <!-- <div class="coming-soon-banner">
+      <div class="banner-text">COMING SOON</div>
+    </div> -->
+    
     <div v-if="product" class="product-content">
       <!-- Back Button -->
       <button @click="$router.back()" class="back-button">
@@ -70,7 +75,8 @@
             
             <button @click="addToCart" class="add-to-cart-button">
               Add to Cart
-            </button>
+            </button> 
+           
           </div>
           
           <div class="additional-info" v-if="product.additionalInfo">
@@ -97,6 +103,7 @@ interface Product {
   description: string;
   sizes: string[];
   additionalInfo?: string;
+  isMerchandise: boolean;
 }
 
 export default defineComponent({
@@ -119,10 +126,11 @@ export default defineComponent({
     return {
       products: [
         {
+          isMerchandise: true,
           productId: "prod_S26fyB25tyKpD1",
-          name: 'Become L"1"mitless Club Tee',
+          name: 'Become L1MITLESS Club Tee',
           description: 'A sleek and stylish tee to represent the LIMITLESS lifestyle.',
-          price: 25.99,
+          price: 28.99,
           image: require('@/assets/Front.png'),
           images: [
             require('@/assets/Front.png'),
@@ -130,15 +138,125 @@ export default defineComponent({
             require('@/assets/Folded.png'),
           ],
           sizes: ['S', 'M', 'L', 'XL'],
-          additionalInfo: '100% cotton, machine washable, slim fit design',
+          additionalInfo: `: Made with medium fabric (5.3 oz/yd² (180 g/m²)) consisting of 100% cotton for year-round comfort that is sustainable and highly durable. 
+.: The classic fit of this shirt ensures a comfy, relaxed wear while the crew neckline adds that neat, timeless look that can blend into any occasion, casual or semi-formal.
+.: The tear-away label means a scratch-free experience with no irritation or discomfort whatsoever.
+.: Made using 100% US cotton that is ethically grown and harvested. Gildan is also a proud member of the US Cotton Trust Protocol ensuring ethical and sustainable means of production. This blank tee is certified by Oeko-Tex for safety and quality assurance.`,
         },
         {
+          isMerchandise: true,
+          productId: "prod_SKU5WOYc3QYGLv",
+          name: 'L1MITLESS Session Trucker',
+          description: '“Love at First Set” Cap — For those who fall hard... for their gym reps and running miles. Warning: May cause spontaneous flexing and random bursts of energy!',
+          price: 35.99,
+          image: require('@/assets/LoveAtFirstSet.png'),
+          images: [
+            require('@/assets/LoveAtFirstSet.png'),
+            require('@/assets/L1mitlessLogoHatPurpleBottom.png'),
+          ],
+          sizes: ['One Size'],
+          additionalInfo: 'Adjustable strap, 100% cotton',
+        },
+        {
+          isMerchandise: true,
+          productId: "prod_SEUjEtXcDyN3CW",
+          name: "L1MITLESS Athletic Vest",
+          description: 'L1mitless Hybrid Vest, perfect for hitting workouts and casual wear.',
+          price: 26.99,
+          image: require('@/assets/frontvest.png'),
+          images: [
+            require('@/assets/frontvest.png'),
+            require('@/assets/BackVest.png'),
+            require('@/assets/L1mitlessClothingModel.png')
+          ],
+          sizes: ['S', 'M', 'L', 'XL'],
+          additionalInfo: `Product features
+- Solid colors are 100% cotton, heather colors are a blend of cotton and viscose
+- Cut-off sleeves boast a trendy raw edge for a modern look
+- Ribbed knit collar retains shape while offering elasticity
+- Made from 100% combed ringspun cotton for softness and comfort
+- Lightweight fabric perfect for warm weather (4.4 oz/yd²)
+
+Care instructions
+- Machine wash: warm (max 40C or 105F)
+- Non-chlorine: bleach as needed
+- Tumble dry: medium
+- Iron, steam or dry: low heat
+- Do not dryclean`,
+        
+        },
+        {
+          isMerchandise: true,
+          productId: "prod_SEUciupfgBFNIc",
+          name: "L1MITLESS Inspire Club Tee",
+          description: 'Inspire the LIMITLESS lifestyle.',
+          price: 26.99,
+          image: require('@/assets/FrontInspire.jpg'),
+          images: [
+            require('@/assets/FrontInspire.jpg'),
+            require('@/assets/BackInspire.jpg'),
+            //require('@/assets/shirtDetail2.png')
+          ],
+          sizes: ['S', 'M', 'L', 'XL'],
+          additionalInfo: `- Neck and shoulder tape for enhanced stability
+- Durable double-needle sleeve and bottom hems
+- Ribbed collar for a well-fitted look
+- Soft & breathable 100% cotton composition
+- Classic fit with a tear-away label
+
+Care instructions
+- Machine wash: cold (max 30C or 90F)
+- Do not bleach
+- Tumble dry: low heat
+- Iron, steam or dry: low heat
+- Do not dryclean`,
+        
+        },
+        {
+          isMerchandise: true,
           productId: "prod_S26c3i7MqPJkfG",
+          name: "L1MITLESS Goldie Trucker",
+          description: 'Gold laid back, winning on chill mode.',
+          price: 29.99,
+          image: require('@/assets/L1mitlessHat1.png'),
+          images: [
+            require('@/assets/L1mitlessHat1.png'),
+            require('@/assets/L1mitlessHat1Side.png'),
+            require('@/assets/L1mitlessHat1Bottom.png'),
+            require('@/assets/L1mitlessHatModel.png')
+          ],
+          sizes: ['One Size'],
+          additionalInfo: 'Adjustable strap, 100% cotton',
+          
+        },
+        {
+          isMerchandise: true,
+          productId: "prod_S26eHCm3dhcXdr",
           name: 'L1MITLESS Trucker Cap',
           description: 'A sleek and stylish cap to represent the LIMITLESS lifestyle.',
           price: 25.99,
-          image: require('@/assets/Cap2.png'),
-          images: [require('@/assets/Cap2.png')],
+          image: require('@/assets/Cap3.png'),
+          images: [
+            require('@/assets/Cap3.png'),
+            require('@/assets/L1mitlessHat1Side.png'),
+            require('@/assets/L1mitlessHat1Bottom.png'),
+            require('@/assets/L1mitlesshatModel2.png')
+          ],
+          sizes: ['One Size'],
+          additionalInfo: 'Adjustable strap, 100% cotton',
+        
+        },
+        {
+          isMerchandise: true,
+          productId: "prod_SKU1P30RE8Pztr",
+          name: 'L1MITLESS Purple Sproose',
+          description: '"Clean, calm, and ready for lift-off. The Purple Sproose keeps it simple but flies high.',
+          price: 35.99,
+          image: require('@/assets/L1mitlessLogoHatPurple.png'),
+          images: [
+            require('@/assets/L1mitlessLogoHatPurple.png'),
+            require('@/assets/L1mitlessLogoHatPurpleBottom.png'),
+          ],
           sizes: ['One Size'],
           additionalInfo: 'Adjustable strap, 100% cotton',
         },
@@ -202,6 +320,7 @@ export default defineComponent({
       if (!this.product) return;
 
       this.store.commit('ADD_TO_CART', {
+        isMerchandise: this.product.isMerchandise,
         productId: this.product.productId,
         name: this.product.name,
         price: this.product.price,
@@ -215,12 +334,64 @@ export default defineComponent({
   },
 });
 </script>
+
 <style scoped>
 /* Base Styles */
 .product-detail-page {
   max-width: 1200px;
   margin: 0 auto;
   padding: 1rem;
+  position: relative;
+}
+
+/* Coming Soon Banner */
+.coming-soon-banner {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: #ff3b30;
+  color: white;
+  text-align: center;
+  padding: 12px 0;
+  z-index: 1000;
+  animation: slideInOut 3s infinite;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.banner-text {
+  font-size: 1.2rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes slideInOut {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  15%, 85% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 
 /* Back Button */

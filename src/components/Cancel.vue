@@ -4,7 +4,6 @@
         <h1>😢 Payment Failed</h1>
         <p class="subtitle">Oops! Something went wrong with your transaction.</p>
         <p class="error-details">Please try again or contact support if the issue persists.</p>
-        <button @click="retryPayment" class="retry-button">Retry Payment</button>
         <button @click="goToHome" class="home-button">Go to Homepage</button>
       </div>
     </div>
@@ -16,9 +15,6 @@
   const router = useRouter();
   
   // Navigate to retry the payment
-  const retryPayment = () => {
-    router.push('/checkout'); // Replace with your checkout page route
-  };
   
   // Navigate back to the homepage
   const goToHome = () => {

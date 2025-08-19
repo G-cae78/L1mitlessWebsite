@@ -30,12 +30,12 @@ export default defineComponent({
   data() {
     return {
       trainingPlan: {
-        id: 1,
+        productId: "cdHdKAPwgFmcnRvtpBc0",
         name: 'Limitless Strength Plan',
-        description: 'The exact plan I used to build strength and muscle over the past three years.',
+        description: "This is the exact strength training plan I’ve followed for the past three years to build muscle and power—without sacrificing athleticism and mobility. Structured around upper/lower splits with strategic rest days, it prioritizes hypertrophy-focused volume while sneaking in just enough cardio to keep conditioning sharp (if you don't like the miles but still want to stay sharp this is perfect.)",
         image: require('@/assets/Muscle.png'),
         goal: 'Build Muscle, Increase Strength, and Boost Confidence',
-        price: 49.99,
+        price: 6.99,
       },
     };
   },
@@ -52,28 +52,6 @@ export default defineComponent({
       });
       alert(`${item.name} added to cart!`);
     },
-    // async purchasePlan(plan: any) {
-    //   try {
-    //     const stripe = await stripePromise;
-    //     const response = await fetch('http://localhost:4242/create-checkout-session', {
-    //       method: 'POST',
-    //       headers: { 'Content-Type': 'application/json' },
-    //       body: JSON.stringify({ planId: plan.id, name: plan.name, price: plan.price }),
-    //     });
-
-    //     if (!response.ok) {
-    //       console.error('Failed to create checkout session');
-    //       return;
-    //     }
-
-    //     const session = await response.json();
-    //     if (stripe) {
-    //       await stripe.redirectToCheckout({ sessionId: session.id });
-    //     }
-    //   } catch (error) {
-    //     console.error('Error redirecting to checkout', error);
-    //   }
-    // },
   },
 });
 </script>

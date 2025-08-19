@@ -1,5 +1,7 @@
 <template>
   <div class="home-page">
+
+    <!-- Existing content -->
     <h1 class="page-title animate__animated animate__fadeIn">{{ msg }}</h1>
     <div class="grid-container">
       <div 
@@ -26,6 +28,7 @@
   </div>
 </template>
 
+
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component';
 import { useRouter } from 'vue-router';
@@ -36,22 +39,24 @@ import { useRouter } from 'vue-router';
   }
 })
 export default class HelloWorld extends Vue {
-  msg!: string
+  msg!: string;
 
   menuItems = [
-    { text: 'Hybrid Training', route: 'hybrid', image: 'Running.png' },
-    { text: 'Strength Training', route: 'strength', image: 'calfraises.png' },
+    { text: 'Hybrid Training', route: 'hybrid', image: 'Hybrid.png' },
+    { text: 'Strength Training', route: 'strength', image: 'Strength.png' },
     { text: 'Meal Plans', route: 'meal-plans', image: 'Pasta.png' },
     { text: 'Merchandise', route: 'merch', image: 'shirtBack.png' }
-  ]
+  ];
 
   router = useRouter();
 
   switchPage = (page: string) => {
     this.router.push(`/${page}`);
   };
+
 }
 </script>
+
 
 <style scoped>
 /* Add animate.css for animations */
@@ -61,6 +66,19 @@ export default class HelloWorld extends Vue {
   margin-top: 0;
   padding-top: 0;
 }
+
+.background-video {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  z-index: -1; /* Sit behind everything else */
+  opacity: 0.5; /* Optional: adjust for better contrast */
+  filter: brightness(0.7); /* Optional: dim the video for readability */
+}
+
 
 .page-title {
   margin-top: 0.5rem;
@@ -118,6 +136,7 @@ export default class HelloWorld extends Vue {
 .card-image {
   width: 100%;
   height: 100%;
+  zoom: 150%;
   object-fit: cover;
   transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
 }

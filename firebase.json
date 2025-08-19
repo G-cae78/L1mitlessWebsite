@@ -17,6 +17,7 @@
     {
       "source": "functions",
       "codebase": "default",
+      "secretEnv": ["STRIPE_SECRET", "STRIPE_WEBHOOK_SECRET"],
       "ignore": [
         "node_modules",
         ".git",

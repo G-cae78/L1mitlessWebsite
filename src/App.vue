@@ -4,7 +4,7 @@
     <header class="main-header">
       <span class="header-text left-text">BECOME</span>
       <img class="logo" alt="logo" src="./assets/TransparentLogo.png" @click="goHome">
-      <span class="header-text right-text">L1MITLESS</span>
+      <span class="header-text right-text">L1MITLESS</span><br>
     </header>
     
     <!-- Responsive Navigation -->
@@ -22,13 +22,22 @@
         </router-link>
       </div>
     </nav>
+    <div class="promo-banner">
+        <strong>NEW CLOTHING DESIGNS COMING SOON</strong>.
+      </div>
 
     <!-- Main Content -->
     <main class="main-content">
       <router-view/>
     </main>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+      <p>&copy; 2025 L1MITLESS. All rights reserved.</p>
+    </footer>
   </div>
 </template>
+
 
 <script lang="ts">
 import { defineComponent } from 'vue';
@@ -75,6 +84,9 @@ export default defineComponent({
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 /* Navigation Styles */
@@ -96,6 +108,28 @@ export default defineComponent({
   padding: 0 1rem;
   max-width: 1200px;
   margin: 0 auto;
+}
+
+@keyframes banner-pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.03); }
+  100% { transform: scale(1); }
+}
+
+/* Promo Banner */
+.promo-banner {
+  text-align: center;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 0.75rem 1rem;
+  margin: 1rem auto;
+  max-width: 95%;
+  border-radius: 6px;
+  background: #e63946;
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  animation: banner-pulse 1.5s infinite;
 }
 
 .nav-button {
@@ -157,12 +191,38 @@ export default defineComponent({
 /* Header Styles */
 .main-header {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 1rem;
-  padding: 0.5rem;
-  flex-wrap: wrap;
-  background-color: white;
+  justify-content: center; /* Center the content horizontally */
+  align-items: center; /* Center the content vertically */
+  width: 100%; /* Full width */
+  padding: 0.5rem 0; /* Vertical padding */
+  background-color: white; /* Header background */
+  position: relative; /* Ensure proper positioning */
+  z-index: 100; /* Ensure it stays above other elements */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Optional shadow for better visibility */
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+}
+
+.app-container {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.main-header,
+.main-footer {
+  width: 100%; /* Ensure full width */
+  margin: 0; /* Remove unnecessary margins */
+  padding: 0.5rem 0; /* Keep vertical padding */
+  background-color: white; /* Header background */
+  position: relative; /* Ensure proper positioning */
+  z-index: 100; /* Ensure it stays above other elements */
 }
 
 .header-text {
@@ -181,8 +241,8 @@ export default defineComponent({
 
 /* Animation */
 @keyframes fly-up {
-  10% { transform: translateY(15px); }
-  30% { transform: translateY(-70px); }
+  10% { transform: translateY(30px); }
+  30% { transform: translateY(-90px); }
   100% { transform: translateY(0); }
 }
 
@@ -194,11 +254,21 @@ export default defineComponent({
 .main-content {
   flex: 1;
   padding: 1rem;
-  max-width: 1200px;
+  max-width: 1500px;
   width: 100%;
   margin: 0 auto;
   margin-top: 0;
 }
+
+.main-footer {
+  background-color: #f8f8f8; /* Footer background */
+  text-align: center;
+  padding: 1rem;
+  font-size: 0.9rem;
+  color: #777;
+  border-top: 1px solid #e0e0e0;
+}
+
 
 * {
   box-sizing: border-box;
@@ -207,43 +277,55 @@ export default defineComponent({
 /* Mobile Overrides Only */
 @media (max-width: 768px) {
   .main-header {
-    gap: 1.5rem; /* More space between elements */
-    padding: 0rem; /* More padding */
+    gap: 0.5rem; /* Reduced gap for tighter layout */
+    padding: 0.5rem 0; /* Consistent vertical padding */
   }
   
   .header-text {
-    font-size: 1.5rem; /* Larger text */
-    font-weight: 800; /* Bolder */
-    letter-spacing: 0.5px; /* Better spacing */
+    font-size: 1.5rem;
+    font-weight: 800;
+    letter-spacing: 0.5px;
   }
 
   .nav-container {
-    gap: 0.5rem; /* Reduce gap for smaller screens */
+    gap: 0.5rem;
+    padding: 0 0.5rem; /* Reduced right padding, removed left padding */
+   /* Align buttons to left */
+    margin-left: -5; /* Remove auto margin */
+    max-width: 100%; /* Allow full width adjustment */
   }
   
   .logo {
-    height: 100px; /* Larger logo */
-    width: 100px;
+    height: 80px; /* Slightly reduced for better proportion */
+    width: 80px;
+    margin-right: 0.5rem; /* Added spacing between logo and right text */
   }
 }
 
 /* Adjustments for very small phones */
 @media (max-width: 480px) {
   .main-header {
-    gap: 1.20rem;
+    gap: 0.25rem;
+    padding: 0.5rem 0.5rem; /* Added horizontal padding */
   }
   
   .header-text {
-    font-size: 1.2rem; /* Slightly smaller but still big */
+    font-size: 1.2rem;
   }
 
   .nav-container {
-    gap: 0.25rem; /* Further reduce gap for very small screens */
+    gap: 0.25rem;
+    padding: 0 0.25rem; /* Even tighter padding */
   }
   
   .logo {
-    height: 90px;
-    width: 90px;
+    height: 70px;
+    width: 70px;
+  }
+  
+  .nav-button {
+    padding: 0.5rem 0.75rem; /* Slightly reduced button padding */
+    font-size: 0.9rem; /* Smaller font for tight spaces */
   }
 }
 </style>

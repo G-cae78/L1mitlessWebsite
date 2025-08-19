@@ -29,13 +29,13 @@ export default defineComponent({
   data() {
     return {
       trainingPlan: {
-        id: 1,
+        productId: "sSslwv3eDQ6RZ0NoaWMx",
         name: 'Sub-20min 5k & Sub-40min 10k Training Plan',
         description:
-          'This is the exact plan I currently use to achieve a sub-20-minute 5k and train for a sub-40-minute 10k. It combines strength, endurance, and speed training for optimal performance.',
+        `This is the exact hybrid training plan I use to run a sub-20-minute 5K (19:40 PR) and am currently refining for a sub-40-minute 10K (42:00 PB). It blends structured speedwork, endurance building, and strength training to optimize performance while minimizing injury risk. The mix of running and lifting keeps workouts engaging and maximizes overall fitness—no more grinding through monotonous weight sessions or endless slow miles!`,
         image: require('@/assets/Running.png'), // Replace with your image
         goal: 'Achieve a sub-20-minute 5k and train for a sub-40-minute 10k.',
-        price: 29.99,  // Example price
+        price: 6.99,  // Example price
       },
     };
   },

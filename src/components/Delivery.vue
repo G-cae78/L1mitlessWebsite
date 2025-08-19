@@ -6,35 +6,20 @@
     <form @submit.prevent="proceedToPayment" class="delivery-form">
       <div class="form-group">
         <label for="name">Full Name</label>
-        <input v-model="deliveryDetails.name" type="text" id="name" placeholder="Enter your full name" required />
+        <input v-model="customerDetails.name" type="text" id="name" placeholder="Enter your full name" required />
       </div>
 
       <div class="form-group">
         <label for="email">Email Address</label>
-        <input v-model="deliveryDetails.email" type="email" id="email" placeholder="Enter your email" required />
+        <input v-model="customerDetails.email" type="email" id="email" placeholder="Enter your email" required />
       </div>
 
       <div class="form-group">
         <label for="address">Address</label>
-        <input v-model="deliveryDetails.address" type="text" id="address" placeholder="Enter your address" required />
+        <input v-model="customerDetails.address" type="text" id="address" placeholder="Enter your address" required />
       </div>
 
-      <div class="form-group">
-        <label for="city">City</label>
-        <input v-model="deliveryDetails.city" type="text" id="city" placeholder="Enter your city" required />
-      </div>
-
-      <div class="form-group">
-        <label for="postalCode">Postal Code</label>
-        <input v-model="deliveryDetails.postalCode" type="text" id="postalCode" placeholder="Enter your postal code" required />
-      </div>
-
-      <div class="form-group">
-        <label for="country">Country</label>
-        <input v-model="deliveryDetails.country" type="text" id="country" placeholder="Enter your country" required />
-      </div>
-
-      <button type="submit" class="proceed-button">Proceed to Payment</button>
+      <button type="submit" class="proceed-button">Ready to Checkout</button>
     </form>
   </div>
 
@@ -47,24 +32,22 @@ import { loadStripe } from '@stripe/stripe-js';
 import axios from 'axios';
 
 export default defineComponent({
-  name: 'DeliveryDetails',
+  name: 'CustomerDetails',
   setup() {
     const route = useRoute();
     const isLoading = ref(false);
     const formValid = ref(true);
 
     // Delivery details
-    const deliveryDetails = ref({
+    const customerDetails = ref({
       name: '',
       email: '',
       address: '',
-      city: '',
-      postalCode: '',
-      country: '',
     });
-    console.log("Delivery Details:", deliveryDetails.value);
+    console.log("Delivery Details:", customerDetails.value);
 
     // Cart details
+    const isMerchandise = ref<boolean[]>([]);
     const productIds = ref<string[]>([]);
     const productDescription = ref<string[]>([]);
     const productName = ref<string[]>([]);
@@ -74,21 +57,24 @@ export default defineComponent({
 
     // Retrieve cart data
     onMounted(() => {
+      isMerchandise.value = route.query.isMerchandise?.toString().split(',').map(Boolean) || [];
       productIds.value = route.query.productId?.toString().split(',') || [];
       productDescription.value = route.query.description?.toString().split(',') || [];
       productName.value = route.query.name?.toString().split(',') || [];
       quantities.value = route.query.quantity?.toString().split(',').map(Number) || [];
       prices.value = route.query.price?.toString().split(',').map(Number) || [];
       total.value = parseFloat(route.query.total as string) || 0;
+      console.log("Product IDs:", productIds.value);
+      console.log("isMerchandise:", isMerchandise.value);
     });
 
     // Validate form
     const validateForm = () => {
       console.log("Validating form...");
       formValid.value = true;
-      const requiredFields = ['name', 'email', 'address', 'city', 'postalCode', 'country'];
+      const requiredFields = ['name', 'email'];
       requiredFields.forEach(field => {
-        if (!deliveryDetails.value[field as keyof typeof deliveryDetails.value]) {
+        if (!customerDetails.value[field as keyof typeof customerDetails.value]) {
           formValid.value = false;
         }
       });
@@ -102,29 +88,28 @@ export default defineComponent({
       alert('Please fill in all required fields.');
       return; // Stop if form is invalid
     }
-
-    // Log delivery details before creating payload
-    console.log("Delivery Details:", deliveryDetails.value);
     
     // Structure payload EXACTLY as backend expects
     const payload = {
-      deliveryDetails: {
-        email: deliveryDetails.value.email,
-        name: deliveryDetails.value.name, // Optional based on your backend
-        address: deliveryDetails.value.address // Optional based on your backend
+      customerDetails: {
+        name: customerDetails.value.name,
+        email: customerDetails.value.email,
+        address: customerDetails.value.address,
       },
       product: {
         name: productName.value[0] || "Product Name",
         description: productDescription.value[0] || "Product Description",
         price: total.value || 0 // Must be a number
       },
-      productId: productIds.value[0] || "" // Must be string
+      productId: productIds.value[0] || "",// Must be string
+      isMerchandise: isMerchandise.value[0] || false, // Must be boolean
     };
 
     // Log the payload before sending it
     console.log("Final payload being sent:", payload);
 
-    const response = await axios.post('https://createcheckoutsession-y65c5f7hba-ew.a.run.app',
+    //const response = await axios.post('http://127.0.0.1:5001/l1mitless/europe-west1/createCheckoutSession',
+     const response = await axios.post('https://europe-west1-l1mitless.cloudfunctions.net/createCheckoutSession',
       payload,
       {
         headers: {
@@ -137,7 +122,8 @@ export default defineComponent({
     const { sessionId } = response.data;
     console.log("Stripe sessionId:", sessionId);
 
-    const stripe = await loadStripe("pk_live_51R3fhPBSEvZ2sDOOM6NhGzEpEY7okEW0Nz8PzzH4sebQ6zCLQivq5FasGrc1Xx63tn55K5c8xU3Qs3ieiUprvQa900k7yg3eZo");
+    const stripe = await loadStripe("pk_live_51R3fhPBSEvZ2sDOOvA2gJQGQbQcM8or4rYCyOLDSUw19PQJpgZQZD3TcoYGXxcvESrNt7YNtyzL0OKo1hHCgGm6q00EkMYm9Qy")
+    
     await stripe?.redirectToCheckout({ sessionId });
 
   } catch (error) {
@@ -159,7 +145,7 @@ export default defineComponent({
   }
 };
     return {
-      deliveryDetails,
+      customerDetails,
       proceedToPayment,
       isLoading,
       formValid,

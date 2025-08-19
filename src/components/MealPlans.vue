@@ -5,7 +5,7 @@
       <br>
       <div class="meal-plans-container">
         <!-- Meal Plan Cards -->
-        <div class="meal-plan-card" v-for="plan in mealPlans" :key="plan.id">
+        <div class="meal-plan-card" v-for="plan in mealPlans" :key="plan.productId">
           <img :src="plan.image" :alt="plan.name" class="meal-plan-image" />
           <div class="meal-plan-details">
             <h2>{{ plan.name }}</h2>
@@ -34,32 +34,32 @@
       return {
         mealPlans: [
           {
-            id: 1,
-            name: 'Healthy',
+            productId: "i8xtypOVUVyK4W20YPQO",
+            name: 'Eat Healthy',
             description: 'A balanced meal plan to maintain your fitness and energy levels.',
             image: require('@/assets/Breakfast.png'), // Replace with your image
-            options: ['1 Week', '2 Weeks', '1 Month'],
-            price: 5.99,
-            selectedOption: '1 Week',
+            options: ['2 Weeks'],
+            price: 4.99,
+            selectedOption: '2 Weeks',
           },
           {
-            id: 2,
-            name: 'Muscle Building',
+            productId: "xx2rJklCN4RPixLJOMRd",
+            name: 'Build Muscle',
             description: 'High-protein meals to help you build muscle and strength.',
             image: require('@/assets/MexicanRice.png'), // Replace with your image
-            options: ['1 Week', '2 Weeks', '1 Month'],
-            price: 5.99,
-            selectedOption: '1 Week',
+            options: ['2 Weeks'],
+            price: 4.99,
+            selectedOption: '2 Weeks',
           },
   
           {
-            id: 4,
+            productId: "YPbEJMwJHd1jdkqbvZP5",
             name: 'Lose Weight',
-            description: 'Targeted meal plan to reduce body fat while maintaining muscle mass.',
+            description: 'Targeted meal plan to reduce body fat while gaining muscle mass.',
             image: require('@/assets/StirFry.png'), // Replace with your image
-            options: ['1 Week', '2 Weeks', '1 Month'],
-            price: 5.99,
-            selectedOption: '1 Week',
+            options: ['2 Weeks'],
+            price: 4.99,
+            selectedOption: '2 Weeks',
           },
         ],
       };
